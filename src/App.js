@@ -43,9 +43,8 @@ class App {
 	watchers() {
 		let self = this;
 		gulp.task('watch:' + this.name, () => {
-			console.log(self.watchPath(self.cssBuild.compilerExtension));
 			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), [self.cssTaskName()]);
-			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand]);
+			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand, AssetPipeline.config.jsLintCommand]);
 		});
 	}
 
