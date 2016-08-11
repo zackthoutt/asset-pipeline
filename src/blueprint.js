@@ -20,6 +20,7 @@ class blueprint {
 		this.makeAllTask();
 		this.versionTask();
 		this.testTask();
+		this.jsLintTask();
 	}
 
 	makeAllTask() {
@@ -32,6 +33,14 @@ class blueprint {
 		        configFile: __dirname + '/../karma.conf.js',
 		        singleRun: true
 		    }, done).start();
+		});
+	}
+
+	jsLintTask() {
+		gulp.task(AssetPipeline.config.jsLintCommand, function() {
+		    return gulp.src(__dirname + AssetPipeline.config.appsDir + '/**/*.js')
+		        .pipe(AssetPipeline.plugins.jshint())
+		        .pipe(AssetPipeline.plugins.jshint.reporter('default'));
 		});
 	}
 
