@@ -24,7 +24,9 @@ class App {
 			return gulp.src(entry)
 					.pipe(AssetPipeline.plugins.sourcemaps.init())
 					.pipe(this.cssBuild.compile())
-					.pipe(this.cssBuild.minify())
+					.pipe(AssetPipeline.production ?
+						this.cssBuild.minify()
+						: AssetPipeline.plugins.util.noop())
 					.pipe(AssetPipeline.plugins.sourcemaps.write())
 					.pipe(gulp.dest('./build'))
 					.pipe(AssetPipeline.plugins.notify('Styles compiled'));
@@ -35,6 +37,9 @@ class App {
 		gulp.task(this.jsTaskName(), () => {
 			return gulp.src(entry)
 					.pipe(this.jsBuild.compile())
+					.pipe(AssetPipeline.production ?
+						this.jsBuild.minify()
+						: AssetPipeline.plugins.util.noop())
 					.pipe(gulp.dest('./build'))
 					.pipe(AssetPipeline.plugins.notify('Scripts compiled'));
 		});
@@ -43,9 +48,8 @@ class App {
 	watchers() {
 		let self = this;
 		gulp.task('watch:' + this.name, () => {
-			console.log(self.watchPath(self.cssBuild.compilerExtension));
 			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), [self.cssTaskName()]);
-			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand]);
+			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand, AssetPipeline.config.jsLintCommand]);
 		});
 	}
 

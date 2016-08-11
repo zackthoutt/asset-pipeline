@@ -12,3 +12,5 @@ AssetPipeline.apps = fs.readdirSync(AssetPipeline.config.appsDir).map(function(a
 global.Blueprint = new blueprint();
 
 AssetPipeline.plugins = require('gulp-load-plugins')();
+
+AssetPipeline.production = AssetPipeline.plugins.util.env.production ? true : false;
