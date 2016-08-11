@@ -24,7 +24,9 @@ class App {
 			return gulp.src(entry)
 					.pipe(AssetPipeline.plugins.sourcemaps.init())
 					.pipe(this.cssBuild.compile())
-					.pipe(this.cssBuild.minify())
+					.pipe(AssetPipeline.production ?
+						this.cssBuild.minify()
+						: AssetPipeline.plugins.util.noop())
 					.pipe(AssetPipeline.plugins.sourcemaps.write())
 					.pipe(gulp.dest('./build'))
 					.pipe(AssetPipeline.plugins.notify('Styles compiled'));
@@ -35,6 +37,9 @@ class App {
 		gulp.task(this.jsTaskName(), () => {
 			return gulp.src(entry)
 					.pipe(this.jsBuild.compile())
+					.pipe(AssetPipeline.production ?
+						this.jsBuild.minify()
+						: AssetPipeline.plugins.util.noop())
 					.pipe(gulp.dest('./build'))
 					.pipe(AssetPipeline.plugins.notify('Scripts compiled'));
 		});
