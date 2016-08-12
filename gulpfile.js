@@ -3,9 +3,9 @@ var gulp = require('gulp');
 
 alchemist(function(make) {
 	make.apps('assets/apps', '/public')
-		.sass()
+		.less()
 		.minify()
-		.browserify()
+		.typescript()
 		.version()
 		.lint()
 		.test();
