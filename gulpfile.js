@@ -6,6 +6,7 @@ alchemist(function(make) {
 		.sass()
 		.minify()
 		.browserify()
+		.version()
 		.lint()
 		.test();
 });

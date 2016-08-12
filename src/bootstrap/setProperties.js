@@ -18,3 +18,5 @@ AssetPipeline.production = AssetPipeline.plugins.util.env.production ? true : fa
 AssetPipeline.lint = false;
 
 AssetPipeline.test = false;
+
+AssetPipeline.version = false;
