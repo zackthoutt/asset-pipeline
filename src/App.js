@@ -47,9 +47,17 @@ class App {
 
 	watchers() {
 		let self = this;
+		let jsTasks = [];
+		jsTasks.push(self.jsTaskName());
+		if (AssetPipeline.lint) {
+			jsTasks.push(AssetPipeline.config.jsLintCommand);
+		}
+		if (AssetPipeline.test) {
+			jsTasks.push(AssetPipeline.config.testCommand);
+		}
 		gulp.task('watch:' + this.name, () => {
 			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), [self.cssTaskName()]);
-			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand, AssetPipeline.config.jsLintCommand]);
+			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), jsTasks);
 		});
 	}
 

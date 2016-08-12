@@ -5,7 +5,9 @@ alchemist(function(make) {
 	make.apps('assets/apps', '/public')
 		.sass()
 		.minify()
-		.browserify();
+		.browserify()
+		.lint()
+		.test();
 });
 
 /*
