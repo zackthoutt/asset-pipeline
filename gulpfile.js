@@ -5,7 +5,7 @@ alchemist(function(make) {
 	make.apps('assets/apps', '/public')
 		.less()
 		.minify()
-		.typescript()
+		.babelify()
 		.version()
 		.lint()
 		.test();

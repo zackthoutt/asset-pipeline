@@ -1,3 +1,3 @@
-AssetPipeline.registerInstruction('browserify', function() {
-	Blueprint.jsBuild.setCompiler('js', AssetPipeline.plugins.browserify);
+AssetPipeline.registerInstruction('browserify', function(options) {
+	Blueprint.jsBuild.setCompiler('js', options, AssetPipeline.plugins.browserify);
 });

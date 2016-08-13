@@ -7,27 +7,29 @@ class Build {
 		this.minifier = false;
 	}
 
-	setCompiler(extension, callback) {
+	setCompiler(extension, options, callback) {
 		this.compilerExtension = extension;
+		this.compilerOptions = options;
 		this.compiler = callback;
 	}
 
-	setMinifier(callback) {
+	setMinifier(options, callback) {
 		this.minifier = callback;
+		this.minifierOptions = options;
 	}
 
 	compile() {
 		if (!this.compiler) {
 			return gutil.noop();
 		}
-		return this.compiler();
+		return this.compiler(this.compilerOptions);
 	}
 
 	minify() {
 		if (!this.minifier) {
 			return gutil.noop();
 		}
-		return this.minifier();
+		return this.minifier(this.minifierOptions);
 	}
 
 }

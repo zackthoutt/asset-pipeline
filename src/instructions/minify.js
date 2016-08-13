@@ -1,4 +1,4 @@
-AssetPipeline.registerInstruction('minify', function(options) {
-	Blueprint.cssBuild.setMinifier('clean-css', AssetPipeline.plugins.cleanCss);
-	Blueprint.jsBuild.setMinifier('js', AssetPipeline.plugins.uglify);
+AssetPipeline.registerInstruction('minify', function(cssOptions, jsOptions) {
+	Blueprint.cssBuild.setMinifier(cssOptions, AssetPipeline.plugins.cleanCss);
+	Blueprint.jsBuild.setMinifier(jsOptions, AssetPipeline.plugins.uglify);
 });
