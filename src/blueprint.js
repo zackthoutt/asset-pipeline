@@ -18,6 +18,7 @@ class blueprint {
 			self.appTasks.push(app.appTaskName());
 		});
 		this.makeAllTask();
+		this.makeDefaultTask();
 		this.versionTask();
 		this.testTask();
 		this.jsLintTask();
@@ -25,6 +26,12 @@ class blueprint {
 
 	makeAllTask() {
 		gulp.task(this.allTaskName(), this.appTasks);
+	}
+
+	makeDefaultTask() {
+		let defaultTasks = this.appTasks;
+		defaultTasks.push('version');
+		gulp.task('default', defaultTasks);
 	}
 
 	testTask() {

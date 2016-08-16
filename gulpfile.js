@@ -3,9 +3,13 @@ var gulp = require('gulp');
 
 alchemist(function(make) {
 	make.apps('assets/apps', '/public')
-		.less()
-		.minify()
-		.babelify()
+		.sass()
+		.minify({
+            compatibility: 'ie8',
+            processImport: false,
+        })
+        .browserify()
+		.uglify()
 		.version()
 		.lint()
 		.test();
@@ -19,4 +23,6 @@ alchemist(function(make) {
 		.version() // version all files in /build
 		.lint() // lint js in apps dir
 		.test() // run tests in apps directory
+
+
 */

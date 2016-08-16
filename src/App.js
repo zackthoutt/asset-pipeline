@@ -50,6 +50,7 @@ class App {
 	watchers() {
 		let self = this;
 		let jsTasks = [];
+		let cssTasks = [];
 		jsTasks.push(self.jsTaskName());
 		if (AssetPipeline.lint) {
 			jsTasks.push(AssetPipeline.config.jsLintCommand);
@@ -57,8 +58,12 @@ class App {
 		if (AssetPipeline.test) {
 			jsTasks.push(AssetPipeline.config.testCommand);
 		}
+		jsTasks.push('version');
+		cssTasks.push(self.cssTaskName());
+		console.log(AssetPipeline.plugins);
 		gulp.task('watch:' + this.name, () => {
-			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), [self.cssTaskName()]);
+			AssetPipeline.plugins.livereload.listen();
+			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), cssTasks);
 			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), jsTasks);
 		});
 	}
