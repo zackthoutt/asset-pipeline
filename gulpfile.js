@@ -1,4 +1,5 @@
 var alchemist = require('./dist/index.js');
+const stringify = require('stringify');
 var gulp = require('gulp');
 
 alchemist(function(make) {
@@ -8,7 +9,9 @@ alchemist(function(make) {
             compatibility: 'ie8',
             processImport: false,
         })
-        .browserify()
+        .browserify({
+        	transform: [stringify({extensions: ['.html']})],
+        })
 		.uglify()
 		.version()
 		.lint()

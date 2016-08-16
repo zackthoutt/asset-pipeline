@@ -39,7 +39,8 @@
     "karma-chrome-launcher": "^1.0.1",
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
-    "run-sequence": "^1.2.2"
+    "run-sequence": "^1.2.2",
+    "stringify": "^5.1.0"
   },
   "dependencies": {
     "gulp": "^3.9.1",
