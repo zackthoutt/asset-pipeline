@@ -1,9 +1,14 @@
-var alchemist = require('./dist/index.js');
+var AssetPipeline = require('./dist/index.js');
 const stringify = require('stringify');
 var gulp = require('gulp');
 
-alchemist(function(make) {
-	make.apps('assets/apps', '/public')
+AssetPipeline.registerCustomTask('custom-test', function() {
+	gulp.src('.')
+		.pipe(this.plugins.notify('Custom Test'));
+})
+
+AssetPipeline(function(recipe) {
+	recipe.apps('assets/apps', '/public')
 		.sass()
 		.minify({
             compatibility: 'ie8',
@@ -17,15 +22,3 @@ alchemist(function(make) {
 		.lint()
 		.test();
 });
-
-/*
-	make.apps('/assets/apps')
-		.sass() // compile a sass file for each app and put in /build
-		.browserify() // compile a js file for each app and put in /build
-		.minify() // minify both css and js files and put in /build when in production
-		.version() // version all files in /build
-		.lint() // lint js in apps dir
-		.test() // run tests in apps directory
-
-
-*/

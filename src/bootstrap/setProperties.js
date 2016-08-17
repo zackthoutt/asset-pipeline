@@ -9,6 +9,16 @@ AssetPipeline.apps = fs.readdirSync(AssetPipeline.config.appsDir).map(function(a
 	return app;
 });
 
+AssetPipeline.defaultTasks = [];
+
+AssetPipeline.makeTasks = [];
+
+AssetPipeline.watchTasks = {
+	'js': [],
+	'css': [],
+	'html': [],
+};
+
 global.Blueprint = new blueprint();
 
 AssetPipeline.plugins = require('gulp-load-plugins')();

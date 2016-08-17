@@ -31,6 +31,8 @@ class blueprint {
 	makeDefaultTask() {
 		let defaultTasks = this.appTasks;
 		defaultTasks.push('version');
+		defaultTasks.concat(AssetPipeline.defaultTasks);
+		console.log(defaultTasks);
 		gulp.task('default', defaultTasks);
 	}
 
