@@ -5,6 +5,16 @@ var gulp = require('gulp');
 AssetPipeline.registerCustomTask('custom-test', function() {
 	gulp.src('.')
 		.pipe(this.plugins.notify('Custom Test'));
+}, {
+	'default':{
+		'include': true,
+	},
+	'make': {
+		'include': true,
+	},
+	'watch': {
+		'include': false,
+	},
 })
 
 AssetPipeline(function(recipe) {

@@ -15,7 +15,7 @@ class blueprint {
 		self.appTasks = [];
 		this.apps.map(function(name) {
 			let app = new App(name, self.cssBuild, self.jsBuild);
-			self.appTasks.push(app.appTaskName());
+			self.appTasks.push(app.appTaskBareName());
 		});
 		this.makeAllTask();
 		this.makeDefaultTask();
@@ -31,8 +31,7 @@ class blueprint {
 	makeDefaultTask() {
 		let defaultTasks = this.appTasks;
 		defaultTasks.push('version');
-		defaultTasks.concat(AssetPipeline.defaultTasks);
-		console.log(defaultTasks);
+		defaultTasks = defaultTasks.concat(AssetPipeline.defaultTasks);
 		gulp.task('default', defaultTasks);
 	}
 

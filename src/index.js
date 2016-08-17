@@ -13,7 +13,8 @@ global.AssetPipeline = blueprint => {
 
 [
     './bootstrap/setProperties',
-    './bootstrap/registerInstructions'
+    './bootstrap/registerInstructions',
+    './bootstrap/registerCustomTasks',
 ]
 .forEach(bootstrapper => require(bootstrapper));
 

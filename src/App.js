@@ -16,7 +16,9 @@ class App {
 	}
 
 	appTask() {
-		gulp.task(this.appTaskName(), [this.cssTaskName(), this.jsTaskName()]);
+		let appTasks = [this.cssTaskName(), this.jsTaskName()];
+		gulp.task(this.appTaskBareName(), appTasks);
+		gulp.task(this.appTaskName(), appTasks.concat(AssetPipeline.makeTasks));
 	}
 
 	cssTask(entry) {
@@ -60,7 +62,6 @@ class App {
 		}
 		jsTasks.push('version');
 		cssTasks.push(self.cssTaskName());
-		console.log(AssetPipeline.plugins);
 		gulp.task('watch:' + this.name, () => {
 			AssetPipeline.plugins.livereload.listen();
 			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), cssTasks);
@@ -70,6 +71,10 @@ class App {
 
 	appTaskName() {
 		return AssetPipeline.config.appRunAllCommand + ':' + this.name;
+	}
+
+	appTaskBareName() {
+		return AssetPipeline.config.appRunAllCommand + ':' + this.name + ':bare';
 	}
 
 	cssTaskName() {
