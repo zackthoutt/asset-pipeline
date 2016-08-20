@@ -4,6 +4,7 @@ const config = {
 	appRunAllCommand: 'make',
 	testCommand: 'test',
 	jsLintCommand: 'lint',
+	versionCommand: 'version',
 };
 
 module.exports = config;

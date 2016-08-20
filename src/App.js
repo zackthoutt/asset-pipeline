@@ -51,22 +51,29 @@ class App {
 
 	watchers() {
 		let self = this;
-		let jsTasks = [];
 		let cssTasks = [];
-		jsTasks.push(self.jsTaskName());
+		cssTasks.push(self.cssTaskName());
+		gulp.task('watch:' + this.name, () => {
+			AssetPipeline.plugins.livereload.listen();
+			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), cssTasks);
+			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), self.jsWatchTasks());
+			gulp.watch('html', self.jsTaskName());
+		});
+	}
+
+	jsWatchTasks() {
+		let jsTasks = [];
+		jsTasks.push(this.jsTaskName());
 		if (AssetPipeline.lint) {
 			jsTasks.push(AssetPipeline.config.jsLintCommand);
 		}
 		if (AssetPipeline.test) {
 			jsTasks.push(AssetPipeline.config.testCommand);
 		}
-		jsTasks.push('version');
-		cssTasks.push(self.cssTaskName());
-		gulp.task('watch:' + this.name, () => {
-			AssetPipeline.plugins.livereload.listen();
-			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), cssTasks);
-			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), jsTasks);
-		});
+		if (AssetPipeline.version) {
+			jsTasks.push(AssetPipeline.config.versionCommand);
+		}
+		return jsTasks.concat(AssetPipeline.watchTasks.js);
 	}
 
 	appTaskName() {

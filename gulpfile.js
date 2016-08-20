@@ -13,7 +13,8 @@ AssetPipeline.registerCustomTask('custom-test', function() {
 		'include': true,
 	},
 	'watch': {
-		'include': false,
+		'include': true,
+		'type': 'all',
 	},
 })
 

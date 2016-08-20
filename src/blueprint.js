@@ -25,7 +25,7 @@ class blueprint {
 	}
 
 	makeAllTask() {
-		gulp.task(this.allTaskName(), this.appTasks);
+		gulp.task(this.allTaskName(), this.appTasks.concat(AssetPipeline.makeTasks));
 	}
 
 	makeDefaultTask() {
