@@ -51,14 +51,16 @@ class App {
 
 	watchers() {
 		let self = this;
-		let cssTasks = [];
-		cssTasks.push(self.cssTaskName());
 		gulp.task('watch:' + this.name, () => {
 			AssetPipeline.plugins.livereload.listen();
-			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), cssTasks);
+			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), self.cssWatchTasks());
 			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), self.jsWatchTasks());
-			gulp.watch('html', self.jsTaskName());
+
 		});
+	}
+
+	cssWatchTasks() {
+		let cssTasks = [this.cssTaskName()];
 	}
 
 	jsWatchTasks() {
