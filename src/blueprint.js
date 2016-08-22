@@ -2,7 +2,7 @@ import Build from './Build.js';
 import App from './App.js';
 let Server = require('karma').Server
 
-class blueprint {
+class Blueprint {
 
 	constructor() {
 		this.cssBuild = new Build();
@@ -79,4 +79,4 @@ class blueprint {
 
 }
 
-export default lueprint;
+export default Blueprint;

@@ -1,4 +1,4 @@
-import blueprint from '../blueprint.js';
+import Blueprint from '../Blueprint.js';
 
 AssetPipeline.instructions = {};
 
@@ -14,7 +14,7 @@ AssetPipeline.watchTasks = {
 	'html': [],
 };
 
-global.Blueprint = new blueprint();
+global.Blueprint = new Blueprint();
 
 AssetPipeline.plugins = require('gulp-load-plugins')();
 
