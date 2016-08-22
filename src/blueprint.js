@@ -24,13 +24,13 @@ class Blueprint {
 	}
 
 	makeAllTask() {
-		gulp.task(this.allTaskName(), this.appTasks.concat(AssetPipeline.makeTasks));
+		gulp.task(this.allTaskName(), this.appTasks.concat(AssetPipeline.customMakeTasks));
 	}
 
 	makeDefaultTask() {
 		let defaultTasks = this.appTasks;
 		defaultTasks.push(AssetPipeline.config.versionCommand);
-		defaultTasks = defaultTasks.concat(AssetPipeline.defaultTasks);
+		defaultTasks = defaultTasks.concat(AssetPipeline.customDefaultTasks);
 		gulp.task('default', defaultTasks);
 	}
 

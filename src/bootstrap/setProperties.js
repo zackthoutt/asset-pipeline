@@ -4,11 +4,11 @@ AssetPipeline.instructions = {};
 
 AssetPipeline.config = require('../config.js');
 
-AssetPipeline.defaultTasks = [];
+AssetPipeline.customDefaultTasks = [];
 
-AssetPipeline.makeTasks = [];
+AssetPipeline.customMakeTasks = [];
 
-AssetPipeline.watchTasks = {
+AssetPipeline.customWatchTasks = {
 	'js': [],
 	'css': [],
 	'html': [],

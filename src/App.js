@@ -18,7 +18,7 @@ class App {
 	appTask() {
 		let appTasks = [this.cssTaskName(), this.jsTaskName()];
 		gulp.task(this.appTaskBareName(), appTasks);
-		gulp.task(this.appTaskName(), appTasks.concat(AssetPipeline.makeTasks));
+		gulp.task(this.appTaskName(), appTasks.concat(AssetPipeline.customMakeTasks));
 	}
 
 	cssTask(entry) {
@@ -75,7 +75,7 @@ class App {
 		if (AssetPipeline.version) {
 			jsTasks.push(AssetPipeline.config.versionCommand);
 		}
-		return jsTasks.concat(AssetPipeline.watchTasks.js);
+		return jsTasks.concat(AssetPipeline.customWatchTasks.js);
 	}
 
 	appTaskName() {

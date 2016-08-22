@@ -10,29 +10,29 @@ function setTaskOptions(name, options) {
 		return false;
 	}
 	if (options.default.include) {
-		AssetPipeline.defaultTasks.push(name);
+		AssetPipeline.customDefaultTasks.push(name);
 	}
 	if (options.watch.include) {
 		registerWatchTasks(name, options.watch.type);
 	}
 	if (options.make.include) {
-		AssetPipeline.makeTasks.push(name);
+		AssetPipeline.customMakeTasks.push(name);
 	}
 }
 
 function registerWatchTasks(name, type) {
 	if (type === 'js') {
-		AssetPipeline.watchTasks.js.push(name);
+		AssetPipeline.customWatchTasks.js.push(name);
 	}
 	if (type === 'css') {
-		AssetPipeline.watchTasks.css.push(name);
+		AssetPipeline.customWatchTasks.css.push(name);
 	}
 	if (type === 'html') {
-		AssetPipeline.watchTasks.html.push(name);
+		AssetPipeline.customWatchTasks.html.push(name);
 	}
 	if (type === 'all') {
-		AssetPipeline.watchTasks.js.push(name);
-		AssetPipeline.watchTasks.css.push(name);
-		AssetPipeline.watchTasks.html.push(name);
+		AssetPipeline.customWatchTasks.js.push(name);
+		AssetPipeline.customWatchTasks.css.push(name);
+		AssetPipeline.customWatchTasks.html.push(name);
 	}
 }
