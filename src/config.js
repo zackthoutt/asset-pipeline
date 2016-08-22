@@ -1,6 +1,7 @@
 const config = {
-	appsDir: __dirname + '/../assets/apps',
-	distDir: __dirname + '/../dist',
+	appsDir: 'assets/apps',
+	buildDir: 'build',
+	destDir: 'public',
 	appRunAllCommand: 'make',
 	testCommand: 'test',
 	jsLintCommand: 'lint',

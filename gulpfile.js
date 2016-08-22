@@ -19,7 +19,7 @@ AssetPipeline.registerCustomTask('custom-test', function() {
 })
 
 AssetPipeline(function(recipe) {
-	recipe.apps('assets/apps', '/public')
+	recipe.apps('assets/apps', 'build', 'public')
 		.sass()
 		.minify({
             compatibility: 'ie8',

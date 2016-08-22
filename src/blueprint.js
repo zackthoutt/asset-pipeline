@@ -5,7 +5,6 @@ let Server = require('karma').Server
 class blueprint {
 
 	constructor() {
-		this.apps = AssetPipeline.apps;
 		this.cssBuild = new Build();
 		this.jsBuild = new Build();
 	}
@@ -13,7 +12,7 @@ class blueprint {
 	createAppTasks() {
 		let self = this;
 		self.appTasks = [];
-		this.apps.map(function(name) {
+		AssetPipeline.apps.map(function(name) {
 			let app = new App(name, self.cssBuild, self.jsBuild);
 			self.appTasks.push(app.appTaskBareName());
 		});
@@ -30,7 +29,7 @@ class blueprint {
 
 	makeDefaultTask() {
 		let defaultTasks = this.appTasks;
-		defaultTasks.push('version');
+		defaultTasks.push(AssetPipeline.config.versionCommand);
 		defaultTasks = defaultTasks.concat(AssetPipeline.defaultTasks);
 		gulp.task('default', defaultTasks);
 	}
@@ -45,18 +44,20 @@ class blueprint {
 	}
 
 	jsLintTask() {
+		let self = this;
 		gulp.task(AssetPipeline.config.jsLintCommand, function() {
-		    return gulp.src(__dirname + AssetPipeline.config.appsDir + '/**/*.js')
+		    return gulp.src(self.appsDir())
 		        .pipe(AssetPipeline.plugins.jshint())
 		        .pipe(AssetPipeline.plugins.jshint.reporter('default'));
 		});
 	}
 
 	versionTask() {
+		let self = this;
 		gulp.task('version', function() {
-			return gulp.src(__dirname + '/../build/**/*')
+			return gulp.src(self.buildDir())
 					.pipe(AssetPipeline.plugins.rev())
-				    .pipe(gulp.dest('public'))
+				    .pipe(gulp.dest(AssetPipeline.config.destDir))
 				    .pipe(AssetPipeline.plugins.rev.manifest({
 				        merge: true,
 				    }))
@@ -68,6 +69,14 @@ class blueprint {
 		return AssetPipeline.config.appRunAllCommand + ':all';
 	}
 
+	appsDir() {
+		return __dirname + '/../' + AssetPipeline.config.appsDir + '/**/*.js';
+	}
+
+	buildDir() {
+		return __dirname + '/../' + AssetPipeline.config.buildDir + '/**/*';
+	}
+
 }
 
-export default blueprint;
+export default lueprint;

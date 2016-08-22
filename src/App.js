@@ -30,7 +30,7 @@ class App {
 						this.cssBuild.minify()
 						: AssetPipeline.plugins.util.noop())
 					.pipe(AssetPipeline.plugins.sourcemaps.write())
-					.pipe(gulp.dest('./build'))
+					.pipe(gulp.dest(this.buildDir()))
 					.pipe(AssetPipeline.plugins.notify('Styles compiled'));
 		});
 	}
@@ -44,7 +44,7 @@ class App {
 						this.jsBuild.minify()
 						: AssetPipeline.plugins.util.noop())
 					.pipe(AssetPipeline.plugins.sourcemaps.write())
-					.pipe(gulp.dest('./build'))
+					.pipe(gulp.dest(this.buildDir()))
 					.pipe(AssetPipeline.plugins.notify('Scripts compiled'));
 		});
 	}
@@ -100,6 +100,10 @@ class App {
 
 	entryPoint(extension) {
 		return __dirname + '/../' + AssetPipeline.config.appsDir + '/' + this.name + '/' + this.name + '.' + extension;
+	}
+
+	buildDir() {
+		return './' + AssetPipeline.config.buildDir;
 	}
 
 }
