@@ -7,6 +7,7 @@ const config = {
 	karmaFile: '/../karma.conf.js',
 	jsLintCommand: 'lint',
 	versionCommand: 'version',
+	revFile: '/../../',
 };
 
 module.exports = config;
