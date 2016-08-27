@@ -16,7 +16,9 @@ class App {
 	}
 
 	appTask() {
-		gulp.task(this.appTaskName(), [this.cssTaskName(), this.jsTaskName()]);
+		let appTasks = [this.cssTaskName(), this.jsTaskName()];
+		gulp.task(this.appTaskBareName(), appTasks);
+		gulp.task(this.appTaskName(), appTasks.concat(AssetPipeline.customMakeTasks));
 	}
 
 	cssTask(entry) {
@@ -28,7 +30,7 @@ class App {
 						this.cssBuild.minify()
 						: AssetPipeline.plugins.util.noop())
 					.pipe(AssetPipeline.plugins.sourcemaps.write())
-					.pipe(gulp.dest('./build'))
+					.pipe(gulp.dest(this.buildDir()))
 					.pipe(AssetPipeline.plugins.notify('Styles compiled'));
 		});
 	}
@@ -36,11 +38,13 @@ class App {
 	jsTask(entry) {
 		gulp.task(this.jsTaskName(), () => {
 			return gulp.src(entry)
+					.pipe(AssetPipeline.plugins.sourcemaps.init())
 					.pipe(this.jsBuild.compile())
 					.pipe(AssetPipeline.production ?
 						this.jsBuild.minify()
 						: AssetPipeline.plugins.util.noop())
-					.pipe(gulp.dest('./build'))
+					.pipe(AssetPipeline.plugins.sourcemaps.write())
+					.pipe(gulp.dest(this.buildDir()))
 					.pipe(AssetPipeline.plugins.notify('Scripts compiled'));
 		});
 	}
@@ -48,13 +52,38 @@ class App {
 	watchers() {
 		let self = this;
 		gulp.task('watch:' + this.name, () => {
-			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), [self.cssTaskName()]);
-			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), [self.jsTaskName(), AssetPipeline.config.testCommand, AssetPipeline.config.jsLintCommand]);
+			AssetPipeline.plugins.livereload.listen();
+			gulp.watch(self.watchPath(self.cssBuild.compilerExtension), self.cssWatchTasks());
+			gulp.watch(self.watchPath(self.jsBuild.compilerExtension), self.jsWatchTasks());
+
 		});
+	}
+
+	cssWatchTasks() {
+		let cssTasks = [this.cssTaskName()];
+	}
+
+	jsWatchTasks() {
+		let jsTasks = [];
+		jsTasks.push(this.jsTaskName());
+		if (AssetPipeline.lint) {
+			jsTasks.push(AssetPipeline.config.jsLintCommand);
+		}
+		if (AssetPipeline.test) {
+			jsTasks.push(AssetPipeline.config.testCommand);
+		}
+		if (AssetPipeline.version) {
+			jsTasks.push(AssetPipeline.config.versionCommand);
+		}
+		return jsTasks.concat(AssetPipeline.customWatchTasks.js);
 	}
 
 	appTaskName() {
 		return AssetPipeline.config.appRunAllCommand + ':' + this.name;
+	}
+
+	appTaskBareName() {
+		return AssetPipeline.config.appRunAllCommand + ':' + this.name + ':bare';
 	}
 
 	cssTaskName() {
@@ -71,6 +100,10 @@ class App {
 
 	entryPoint(extension) {
 		return __dirname + '/../' + AssetPipeline.config.appsDir + '/' + this.name + '/' + this.name + '.' + extension;
+	}
+
+	buildDir() {
+		return './' + AssetPipeline.config.buildDir;
 	}
 
 }

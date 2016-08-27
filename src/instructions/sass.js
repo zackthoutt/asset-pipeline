@@ -1,3 +1,3 @@
 AssetPipeline.registerInstruction('sass', function(options) {
-	Blueprint.cssBuild.setCompiler('scss', AssetPipeline.plugins.sass);
+	Blueprint.cssBuild.setCompiler('scss', options, AssetPipeline.plugins.sass);
 });
