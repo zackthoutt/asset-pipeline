@@ -37,7 +37,7 @@ class Blueprint {
 	testTask() {
 		gulp.task(AssetPipeline.config.testCommand, function(done) {
 		    new Server({
-		        configFile: __dirname + '/../karma.conf.js',
+		        configFile: __dirname + AssetPipeline.config.karmaFile,
 		        singleRun: true
 		    }, done).start();
 		});
