@@ -61,7 +61,7 @@ class Blueprint {
 				    .pipe(AssetPipeline.plugins.rev.manifest({
 				        merge: true,
 				    }))
-				    .pipe(gulp.dest('.'));
+				    .pipe(gulp.dest(AssetPipeline.config.revFile));
 		});
 	}
 
